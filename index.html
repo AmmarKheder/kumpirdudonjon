@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kumpir du Donjon — Bientôt à Niort</title>
+<meta name="description" content="Le kumpir arrive à Niort. La pomme de terre au four turque, proche du Donjon. Ouverture bientôt.">
+<link rel="icon" href="logo.png">
+
+<meta property="og:title" content="Le kumpir arrive à Niort">
+<meta property="og:description" content="La pomme de terre au four turque, proche du Donjon. Ouverture bientôt.">
+<meta property="og:image" content="logo.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kumpirdudonjon.fr">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Karla:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --brique:#A83418;
+    --brique-clair:#C4502C;
+    --or:#C99B2E;
+    --or-clair:#E8C87A;
+    --pierre:#F2E9DB;
+    --nuit:#1E1210;
+    --creme:#FBF6EE;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  html{scroll-behavior:smooth}
+
+  body{
+    background:var(--nuit);
+    color:var(--pierre);
+    font-family:'Karla',system-ui,-apple-system,sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px 20px;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* Halo de four : la chaleur qui monte du donjon */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(120% 80% at 50% 110%, rgba(201,155,46,.22) 0%, rgba(168,52,24,.10) 38%, transparent 68%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* Texture pierre très discrète */
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 46px, rgba(242,233,219,.022) 46px 47px),
+      repeating-linear-gradient(90deg, transparent 0 92px, rgba(242,233,219,.022) 92px 93px);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .carte{
+    position:relative;
+    z-index:1;
+    width:100%;
+    max-width:620px;
+    text-align:center;
+  }
+
+  /* --- Logo --- */
+  .logo{
+    width:min(230px,60vw);
+    height:auto;
+    display:block;
+    margin:0 auto 34px;
+    filter:drop-shadow(0 14px 40px rgba(201,155,46,.28));
+    animation:apparait .9s cubic-bezier(.2,.7,.3,1) both;
+  }
+
+  /* --- Eyebrow : la vapeur --- */
+  .vapeur{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--or);
+    margin-bottom:22px;
+    animation:apparait .9s cubic-bezier(.2,.7,.3,1) .15s both;
+  }
+
+  /* --- Titre --- */
+  h1{
+    font-family:'Cinzel',Georgia,serif;
+    font-weight:700;
+    font-size:clamp(2.1rem,7.2vw,3.6rem);
+    line-height:1.12;
+    color:var(--creme);
+    letter-spacing:.01em;
+    margin-bottom:20px;
+    animation:apparait .9s cubic-bezier(.2,.7,.3,1) .28s both;
+  }
+
+  h1 .accent{
+    color:var(--or-clair);
+    display:block;
+  }
+
+  /* --- Baseline --- */
+  .baseline{
+    font-size:clamp(1.02rem,3.1vw,1.22rem);
+    font-weight:600;
+    color:rgba(242,233,219,.9);
+    margin-bottom:14px;
+    animation:apparait .9s cubic-bezier(.2,.7,.3,1) .4s both;
+  }
+
+  .sous{
+    font-size:clamp(.92rem,2.6vw,1rem);
+    color:rgba(242,233,219,.62);
+    line-height:1.65;
+    max-width:38ch;
+    margin:0 auto 36px;
+    animation:apparait .9s cubic-bezier(.2,.7,.3,1) .5s both;
+  }
+
+  /* --- Signature : la herse du donjon qui se lève --- */
+  .herse{
+    width:min(300px,80%);
+    margin:0 auto 36px;
+    animation:apparait .9s cubic-bezier(.2,.7,.3,1) .6s both;
+  }
+
+  .herse svg{width:100%;height:auto;display:block}
+
+  .herse .barreau{
+    stroke:var(--brique-clair);
+    stroke-width:2.5;
+    stroke-linecap:round;
+    opacity:.55;
+  }
+
+  .herse .braise{
+    fill:var(--or);
+  }
+
+  /* --- Bloc "bientôt" --- */
+  .bientot{
+    display:inline-flex;
+    align-items:center;
+    gap:11px;
+    padding:11px 24px;
+    border:1px solid rgba(201,155,46,.34);
+    border-radius:100px;
+    background:rgba(201,155,46,.06);
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    color:var(--or-clair);
+    margin-bottom:40px;
+    animation:apparait .9s cubic-bezier(.2,.7,.3,1) .7s both;
+  }
+
+  .braise-point{
+    width:7px;height:7px;
+    border-radius:50%;
+    background:var(--or);
+    box-shadow:0 0 12px var(--or);
+    animation:pulse 2.6s ease-in-out infinite;
+    flex-shrink:0;
+  }
+
+  /* --- Réseaux --- */
+  .reseaux{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+    animation:apparait .9s cubic-bezier(.2,.7,.3,1) .8s both;
+  }
+
+  .reseau{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:13px 24px;
+    border-radius:100px;
+    text-decoration:none;
+    font-weight:700;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    transition:transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s ease, background .22s ease;
+  }
+
+  .reseau svg{width:17px;height:17px;flex-shrink:0}
+
+  .insta{
+    background:var(--brique);
+    color:var(--creme);
+    box-shadow:0 6px 22px rgba(168,52,24,.36);
+  }
+  .insta:hover{background:var(--brique-clair);transform:translateY(-2px);box-shadow:0 10px 30px rgba(168,52,24,.5)}
+
+  .tiktok{
+    background:transparent;
+    color:var(--or-clair);
+    border:1px solid rgba(201,155,46,.42);
+  }
+  .tiktok:hover{background:rgba(201,155,46,.12);transform:translateY(-2px);border-color:var(--or)}
+
+  .reseau:focus-visible{outline:2px solid var(--or-clair);outline-offset:3px}
+
+  /* --- Pied --- */
+  .pied{
+    margin-top:44px;
+    font-size:11.5px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:rgba(242,233,219,.3);
+    animation:apparait .9s cubic-bezier(.2,.7,.3,1) .9s both;
+  }
+
+  /* --- Animations --- */
+  @keyframes apparait{
+    from{opacity:0;transform:translateY(16px)}
+    to{opacity:1;transform:none}
+  }
+
+  @keyframes pulse{
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:.45;transform:scale(.82)}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+  }
+
+  @media (max-width:480px){
+    .reseaux{flex-direction:column;align-items:stretch}
+    .reseau{justify-content:center}
+  }
+</style>
+</head>
+<body>
+
+  <main class="carte">
+
+    <img src="logo.png" alt="Kumpir du Donjon" class="logo" width="230" height="230">
+
+    <p class="vapeur">Pomme de terre au four · Niort</p>
+
+    <h1>
+      Le kumpir
+      <span class="accent">arrive à Niort</span>
+    </h1>
+
+    <p class="baseline">Manger sain, sans se ruiner.</p>
+
+    <p class="sous">
+      La spécialité turque, cuite au four et garnie devant vous.
+      Bientôt ouvert, tout proche du Donjon.
+    </p>
+
+    <div class="herse" aria-hidden="true">
+      <svg viewBox="0 0 300 42" xmlns="http://www.w3.org/2000/svg">
+        <line class="barreau" x1="30"  y1="6" x2="30"  y2="36"/>
+        <line class="barreau" x1="60"  y1="6" x2="60"  y2="36"/>
+        <line class="barreau" x1="90"  y1="6" x2="90"  y2="36"/>
+        <line class="barreau" x1="120" y1="6" x2="120" y2="36"/>
+        <line class="barreau" x1="180" y1="6" x2="180" y2="36"/>
+        <line class="barreau" x1="210" y1="6" x2="210" y2="36"/>
+        <line class="barreau" x1="240" y1="6" x2="240" y2="36"/>
+        <line class="barreau" x1="270" y1="6" x2="270" y2="36"/>
+        <line class="barreau" x1="18" y1="21" x2="132" y2="21"/>
+        <line class="barreau" x1="168" y1="21" x2="282" y2="21"/>
+        <circle class="braise" cx="150" cy="21" r="3.5"/>
+      </svg>
+    </div>
+
+    <div class="bientot">
+      <span class="braise-point" aria-hidden="true"></span>
+      Ouverture bientôt
+    </div>
+
+    <nav class="reseaux" aria-label="Réseaux sociaux">
+      <a class="reseau insta" href="https://www.instagram.com/kumpirdudonjon" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63 19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 100 12.32A6.16 6.16 0 0012 5.84zm0 10.16a4 4 0 110-8 4 4 0 010 8zm7.85-10.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+        </svg>
+        Instagram
+      </a>
+
+      <a class="reseau tiktok" href="https://www.tiktok.com/@kumpirdudonjon" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 013.18-4.51V9.4a6.34 6.34 0 00-1-.05A6.34 6.34 0 005 20.72a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.12z"/>
+        </svg>
+        TikTok
+      </a>
+    </nav>
+
+    <p class="pied">@kumpirdudonjon</p>
+
+  </main>
+
+</body>
+</html>
